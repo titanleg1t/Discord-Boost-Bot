@@ -1,0 +1,51 @@
+autobuy:
+    advance_mode: true
+    max_retry_on_failure: 100
+    proxyless: true
+    refresh_interval: 120
+    sellapp:
+        customisation:
+            bio_field_name: Bio
+            enabled: true
+            nickname_field_name: Nickname
+        enabled: true
+        invite_field_name: Invite
+    sellix:
+        invite_field_name: Server Invite Link
+        orders: ''
+    sellpass:
+        api_key: ''
+        boosts_fail_note: Boosts failed due to an error! if you need more help contact me @titanlegit <3
+        boosts_success_note: Boosts Successful! Thanks For Buying
+        custom_field_name: Invite
+    use_autoboosting: true
+    use_customization: true
+customizations:
+    bio: 'TITAN - BoostBot'
+    enable: false
+    nick: '!'
+    use_custom_banner: false
+    use_custom_pfp: false
+discord:
+    admin_role_ids:
+    - '1391773602038419552'
+    - '1419012246582988892'
+    - '1419012246582988892'
+    owners_ids:
+    - '1391773602038419552'
+    - '1400374181031444572'
+    status: TITAN - BoostBot
+    token: TokenHere:D
+    webhook_url: 
+extras:
+    captcha_solver:
+        capsolver_api_key: ''
+        csolver_key: ''
+        dchcaptcha_api_key: ''
+        hcoptcha_api_key: ''
+        max_retries: 5
+        solve_captcha: false
+        use: capsolver
+    key: ''
+    port: 8081
+    use_log: true

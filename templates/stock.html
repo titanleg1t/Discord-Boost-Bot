@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TITAN - Token Stock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #f43f5e;
+            --primary-dark: #e11d48;
+            --bg-dark: #000000;
+            --bg-card: #111111;
+            --text: #ffffff;
+            --text-secondary: #cbd5e1;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes glow {
+            0% { box-shadow: 0 0 2px rgba(244, 63, 94, 0.3); }
+            50% { box-shadow: 0 0 8px rgba(244, 63, 94, 0.4); }
+            100% { box-shadow: 0 0 2px rgba(244, 63, 94, 0.3); }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #000000;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23222222' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.6s ease-out;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            margin-bottom: 40px;
+            text-align: center;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            animation: slideIn 0.5s ease-out;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            animation: expandWidth 0.8s ease-out forwards;
+            animation-delay: 0.3s;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        .logo span {
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text);
+            animation: fadeIn 0.6s ease-out;
+            animation-delay: 0.1s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            animation: fadeIn 0.6s ease-out;
+            animation-delay: 0.2s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        
+        .features {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            justify-content: center;
+            animation: fadeIn 0.6s ease-out;
+            animation-delay: 0.3s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: rgba(244, 63, 94, 0.1);
+            border-radius: 20px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-3px);
+            background-color: rgba(244, 63, 94, 0.2);
+        }
+        
+        .feature i {
+            color: var(--primary);
+        }
+        
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            animation: slideIn 0.5s ease-out;
+            animation-delay: 0.2s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(244, 63, 94, 0),
+                rgba(244, 63, 94, 0),
+                rgba(244, 63, 94, 0.1),
+                rgba(244, 63, 94, 0)
+            );
+            transform: rotate(45deg);
+            animation: shimmer 3s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-150%) rotate(45deg); }
+            100% { transform: translateX(150%) rotate(45deg); }
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            animation: fadeIn 0.5s ease-out;
+            animation-delay: 0.3s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        
+        .card-header i {
+            font-size: 24px;
+            color: var(--primary);
+        }
+        
+        .card-title {
+            font-size: 22px;
+            font-weight: 600;
+        }
+        
+        .stock-info {
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            animation: fadeIn 0.5s ease-out;
+            opacity: 0;
+            animation-fill-mode: forwards;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .stock-info:nth-of-type(1) {
+            animation-delay: 0.4s;
+        }
+        
+        .stock-info:nth-of-type(2) {
+            animation-delay: 0.5s;
+        }
+        
+        .stock-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .stock-title i {
+            color: var(--primary);
+        }
+        
+        .stock-data {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .stock-data-label {
+            color: var(--text-secondary);
+        }
+        
+        .stock-data-value {
+            font-weight: 600;
+        }
+        
+        .stock-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            width: fit-content;
+        }
+        
+        .stock-status i {
+            font-size: 12px;
+        }
+        
+        .status-available {
+            background-color: rgba(0, 255, 0, 0.15);
+            color: #4cff4c;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+        }
+        
+        .status-low {
+            background-color: rgba(255, 165, 0, 0.15);
+            color: #ffaa2c;
+            border: 1px solid rgba(255, 165, 0, 0.3);
+        }
+        
+        .status-out {
+            background-color: rgba(244, 63, 94, 0.15);
+            color: #ff6b6b;
+            border: 1px solid rgba(244, 63, 94, 0.3);
+        }
+        
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            animation: fadeIn 0.6s ease-out;
+            animation-delay: 0.9s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        
+        .help-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .help-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .help-link:hover {
+            color: var(--primary);
+        }
+        
+        .help-link:hover::after {
+            width: 100%;
+        }
+        
+        .copyright {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 10px;
+            animation: fadeIn 0.6s ease-out;
+            animation-delay: 1s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out;
+            animation-delay: 0.7s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+            transition: all 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">TITAN</span></div>
+        <h1>#1 Boost Bot Stock Panel</h1>
+        <p class="subtitle">Check real-time token availability for your Discord server boosts</p>
+        
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-bolt"></i> Instant Delivery
+            </div>
+            <div class="feature">
+                <i class="fas fa-chart-line"></i> Live Stock
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-database"></i>
+            <h2 class="card-title">Current Token Stock</h2>
+        </div>
+        
+        <div class="stock-info">
+            <div class="stock-title">
+                <i class="fas fa-calendar-day"></i> 1 Month Tokens
+            </div>
+            <div class="stock-data">
+                <span class="stock-data-label">Available Tokens:</span>
+                <span class="stock-data-value">{{ stock_1m }}</span>
+            </div>
+            <div class="stock-data">
+                <span class="stock-data-label">Available Boosts:</span>
+                <span class="stock-data-value">{{ boosts_1m }}</span>
+            </div>
+            <div class="stock-status status-1m">
+                {{ stock_1m_status }}
+            </div>
+        </div>
+        
+        <div class="stock-info">
+            <div class="stock-title">
+                <i class="fas fa-calendar-alt"></i> 3 Month Tokens
+            </div>
+            <div class="stock-data">
+                <span class="stock-data-label">Available Tokens:</span>
+                <span class="stock-data-value">{{ stock_3m }}</span>
+            </div>
+            <div class="stock-data">
+                <span class="stock-data-label">Available Boosts:</span>
+                <span class="stock-data-value">{{ boosts_3m }}</span>
+            </div>
+            <div class="stock-status status-3m">
+                {{ stock_3m_status }}
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <a href="/panel/redeem" class="btn btn-primary">Redeem Key</a>
+            <a href="/" class="btn btn-secondary">Back to Home</a>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <a href="#" class="help-link">Need to purchase a key? Contact support</a>
+        <p class="copyright">TITAN© All Rights Reserved. Crafted by TITAN</p>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set status classes based on stock levels
+            const status1m = document.querySelector('.status-1m');
+            const status3m = document.querySelector('.status-3m');
+            
+            // Get stock values
+            const stock1m = parseInt('{{ stock_1m }}');
+            const stock3m = parseInt('{{ stock_3m }}');
+            
+            // Update 1-month status
+            if (status1m) {
+                if (stock1m <= 0) {
+                    // Red for Out of Stock
+                    status1m.style.backgroundColor = 'rgba(255, 0, 0, 0.15)';
+                    status1m.style.color = '#ff6b6b';
+                    status1m.style.border = '1px solid rgba(255, 0, 0, 0.3)';
+                    status1m.innerHTML = '<i class="fas fa-times-circle"></i> Out of Stock';
+                } else if (stock1m < 10) {
+                    // Orange for Low Stock
+                    status1m.style.backgroundColor = 'rgba(255, 165, 0, 0.15)';
+                    status1m.style.color = '#ffaa2c';
+                    status1m.style.border = '1px solid rgba(255, 165, 0, 0.3)';
+                    status1m.innerHTML = '<i class="fas fa-exclamation-circle"></i> Low Stock';
+                } else {
+                    // Green for Available
+                    status1m.style.backgroundColor = 'rgba(0, 255, 0, 0.15)';
+                    status1m.style.color = '#4cff4c';
+                    status1m.style.border = '1px solid rgba(0, 255, 0, 0.3)';
+                    status1m.innerHTML = '<i class="fas fa-check-circle"></i> Available';
+                }
+            }
+            
+            // Update 3-month status
+            if (status3m) {
+                if (stock3m <= 0) {
+                    // Red for Out of Stock
+                    status3m.style.backgroundColor = 'rgba(255, 0, 0, 0.15)';
+                    status3m.style.color = '#ff6b6b';
+                    status3m.style.border = '1px solid rgba(255, 0, 0, 0.3)';
+                    status3m.innerHTML = '<i class="fas fa-times-circle"></i> Out of Stock';
+                } else if (stock3m < 10) {
+                    // Orange for Low Stock
+                    status3m.style.backgroundColor = 'rgba(255, 165, 0, 0.15)';
+                    status3m.style.color = '#ffaa2c';
+                    status3m.style.border = '1px solid rgba(255, 165, 0, 0.3)';
+                    status3m.innerHTML = '<i class="fas fa-exclamation-circle"></i> Low Stock';
+                } else {
+                    // Green for Available
+                    status3m.style.backgroundColor = 'rgba(0, 255, 0, 0.15)';
+                    status3m.style.color = '#4cff4c';
+                    status3m.style.border = '1px solid rgba(0, 255, 0, 0.3)';
+                    status3m.innerHTML = '<i class="fas fa-check-circle"></i> Available';
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

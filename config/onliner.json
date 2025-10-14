@@ -1,0 +1,21 @@
+{
+    "use_onliner": true,
+    "onliner_paths" : ["data/output/success.txt"],
+    "choose_random_online_status_from": ["online", "dnd", "idle"],
+    "choose_random_activity_type_from": ["game", "streaming", "listening", "watching"],
+    "game": {
+        "choose_random_game_from": ["TITAN"]
+    },
+    "streaming": {
+        "choose_random_name_from": ["TITAN"],
+        "choose_random_url_from": ["TITAN"]
+
+    },
+    "listening": {
+        "choose_random_name_from": ["TITAN"]
+    },
+    "watching": {
+        "choose_random_name_from": ["TITAN"]
+    }
+    
+}

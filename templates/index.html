@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TITAN - Discord Server Boosting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --primary-hover: #00b8e6;
+            --accent: #7c3aed;
+            --accent-hover: #6d28d9;
+            --bg: #000000;
+            --card-bg: #0a0a0a;
+            --card-border: #1a1a1a;
+            --text: #ffffff;
+            --text-secondary: #a1a1aa;
+            --shadow: rgba(0, 212, 255, 0.15);
+            --glow: rgba(0, 212, 255, 0.3);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: var(--bg);
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            padding: 0 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .logo {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 20px;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto 50px;
+            font-weight: 300;
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+            padding: 40px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px var(--shadow);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            transition: var(--transition);
+        }
+        
+        .card:hover .card-icon {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px var(--glow);
+        }
+        
+        .card-icon i {
+            font-size: 24px;
+            color: #000000;
+            font-weight: 600;
+        }
+        
+        .card-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+        
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #000000;
+            padding: 16px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--glow);
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .footer {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .quick-links {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .quick-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .quick-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -6px;
+            left: 0;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            transition: var(--transition);
+        }
+        
+        .quick-link:hover {
+            color: var(--primary);
+        }
+        
+        .quick-link:hover::after {
+            width: 100%;
+        }
+        
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 0;
+            }
+            
+            .logo {
+                font-size: 40px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .cards {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .card {
+                padding: 30px;
+            }
+            
+            .footer {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .quick-links {
+                gap: 30px;
+                margin-bottom: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .quick-links {
+                gap: 20px;
+            }
+            
+            .card {
+                padding: 24px;
+            }
+            
+            .btn {
+                padding: 14px 24px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">TITAN</span></div>
+            <p class="subtitle">Premium Discord server boosting service with instant delivery</p>
+        </div>
+            
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-key"></i>
+                </div>
+                <h2 class="card-title">Redeem Key</h2>
+                <p class="card-description">Redeem your boost key to instantly boost your server.</p>
+                <a href="/panel/redeem" class="btn">Redeem Key</a>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h2 class="card-title">Check Stock</h2>
+                <p class="card-description">Check our current boost stock availability.</p>
+                <a href="/panel/stock" class="btn">View Stock</a>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h2 class="card-title">Check Key</h2>
+                <p class="card-description">Verify your key information and check its validity before redeeming.</p>
+                <a href="/panel/keys" class="btn">Check Key</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="quick-links">
+                <a href="titanlegit.com" class="quick-link">Discord</a>
+                <a href="titanlegit.com" class="quick-link">AutoBuy</a>
+                <a href="/panel/stock" class="quick-link">Stock</a>
+                <a href="/panel/keys" class="quick-link">Check Key</a>
+                <a href="titanlegit.com" class="quick-link">Support</a>
+            </div>
+            <div class="copyright">Crafted BY TITAN</div>
+        </div>
+    </div>
+</body>
+</html> 
