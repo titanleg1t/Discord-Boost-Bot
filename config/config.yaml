@@ -1,8 +1,8 @@
+refresh_interval: 120
 autobuy:
     advance_mode: true
     max_retry_on_failure: 100
     proxyless: true
-    refresh_interval: 120
     sellapp:
         customisation:
             bio_field_name: Bio
@@ -49,3 +49,4 @@ extras:
     key: ''
     port: 8081
     use_log: true
+
