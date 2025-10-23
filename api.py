@@ -20,7 +20,7 @@ app = FastAPI(title="BoostBot API", version="1.0.0")
 # Set up templates
 templates = Jinja2Templates(directory="templates")
 
-# Optional: Serve static files (CSS, JS, etc.)
+# Optional
 if os.path.exists("static"):
     app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -43,7 +43,6 @@ class StockResponse(BaseModel):
 # Auth dependency
 async def get_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
     try:
-        # Here you would validate the token against your authentication system
         # For now we'll just check if it exists
         if not credentials.credentials:
             raise HTTPException(status_code=401, detail="Invalid authentication token")
@@ -115,9 +114,7 @@ def get_stock_info():
         }
 
 def process_redeem(key: str, invite: str, guild_id: Optional[str] = None):
-    # Replace with actual implementation
     try:
-        # Example implementation - replace with your actual redemption logic
         return {"success": True, "message": "Key redeemed successfully"}
     except Exception as e:
         return {"error": str(e)}
@@ -345,5 +342,6 @@ async def home(request: Request):
 if __name__ == "__main__":
     # Run FastAPI standalone (use main.py for running both bot and API together)
     uvicorn.run(app, host="0.0.0.0", port=8080)
+
 
 # Crafted by titan<3
